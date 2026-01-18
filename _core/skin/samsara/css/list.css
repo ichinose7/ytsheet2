@@ -1,0 +1,350 @@
+@charset "utf-8";
+
+@layer system {
+/* // Body
+---------------------------------------------------------------------------------------------------- */
+body {
+  background-image: url(../../_common/img/back-pattern.png), url(../img/back-first.png);
+  @media screen and (width <= 735px){
+    background-size: auto, 80%;
+  }
+}
+/* // List
+---------------------------------------------------------------------------------------------------- */
+.list table tr {
+  grid-template-columns: 26rem 0.7fr 2.5em 5.5em 2em 4.8em 1.7fr 0.6fr;
+  grid-template-areas:
+    "NAME   PL RACE RACE RANK RANK  CLS DATE"
+    "NAME   PL  GEN  AGE  LVL  EXP  CLS DATE"
+    "NAME TAGS TAGS TAGS TAGS TAGS TAGS DATE"
+  ;
+  @media screen and (width <= 735px){
+    grid-template-columns: 18rem 6em 2em 1fr 5em 2fr 3.5em;
+    grid-template-areas:
+      "NAME   PL RACE RACE  EXP  CLS DATE"
+      "NAME   PL  GEN  AGE  EXP  CLS DATE"
+      "NAME TAGS TAGS TAGS TAGS TAGS DATE"
+    ;
+  }
+  & .name   { grid-area: NAME; }
+  & .player { grid-area:   PL; }
+  & .race   { grid-area: RACE; }
+  & .age    { grid-area:  AGE; }
+  & .gender { grid-area:  GEN; }
+  & .rank   { grid-area: RANK; }
+  & .lv     { grid-area:  LVL; }
+  & .exp    { grid-area:  EXP; }
+  & .class  { grid-area:  CLS; }
+  & .tags   { grid-area: TAGS; }
+  & .date   { grid-area: DATE; }
+
+  & .name {
+    position: relative;
+  
+    & small.fellow {
+      position: absolute;
+      right: 0;
+      bottom: .1rem;
+      font-size: 80%;
+      line-height: 1;
+      font-weight: normal;
+    }
+  }
+  & th.gender span.small {
+    display: inline-block;
+    transform: scaleY(calc(1/0.8));
+    font-size: 0.8em;
+  }
+  & td.lv {
+    font-size: 1.15em;
+    line-height: 1;
+    text-wrap: nowrap;
+  }
+  & td:is(.race, .rank) span.small {
+    display: inline-block;
+    transform: scaleY(calc(1/0.85));
+  }
+  & td.class {
+    text-align: left;
+    font-size: 80%;
+    line-height: 1;
+    > div {
+      flex-grow: 1;
+      margin: 0 calc(-6% + -1em) 0 -6%;
+      transform: scaleX(0.88);
+    }
+    > div > span {
+      display: inline-block;
+      margin-right: 1em;
+      padding: .1em 0;
+    }
+  }
+  @media screen and (width <= 735px){
+    & .rank,
+    & .lv { display: none; }
+  }
+}
+
+/* // List-Simple
+---------------------------------------------------------------------------------------------------- */
+.list ul li a[data-lv]::before {
+  content: 'Lv'attr(data-lv);
+}
+
+/* // List-Monster
+---------------------------------------------------------------------------------------------------- */
+.list.monster table tr {
+  grid-template-columns: 24rem 0.6fr 6.8em 3.2em 3.2em 6.8em 1fr 0.5fr;
+  grid-template-areas:
+    "NAME AUTHOR TAXA   LV PARTS DISPO HABIT DATE"
+    "NAME   TAGS TAGS TAGS  TAGS  TAGS  TAGS DATE"
+  ;
+  &:has(.tags:empty) {
+    grid-template-areas:
+      "NAME AUTHOR TAXA LV PARTS DISPO HABIT DATE"
+    ;
+  }
+  @media screen and (width <= 735px){
+    grid-template-columns: 18rem 6em 5em 3.2em 3.2em 5.8em 1fr 3.5em;
+  }
+  & .name        { grid-area: NAME; }
+  & .author      { grid-area: AUTHOR; }
+  & .taxa        { grid-area: TAXA; }
+  & .level       { grid-area: LV; }
+  & .parts       { grid-area: PARTS; }
+  & .disposition { grid-area: DISPO; }
+  & .habitat     { grid-area: HABIT; }
+  & .date        { grid-area: DATE; }
+
+  & th:is(.level, .parts) span.small {
+    display: inline-block;
+    transform: scaleY(calc(1/0.8));
+    font-size: 0.8em;
+  }
+  & td.name a {
+    font-size: 1.4rem;
+  }
+  & td.level {
+    font-size: 1.2em;
+  }
+  & td:is(.taxa) span.small {
+    display: inline-block;
+    transform: scaleY(calc(1/0.85));
+  }
+  @media screen and (width <= 735px){
+    & td:is(.taxa, .disposition, .habitat, .price){
+      font-size: 90%;
+    }
+  }
+}
+
+.list.monster table.mount tr {
+  grid-template-columns: 24rem 1fr 7.2em 5.2em 3.2em 2fr 0.8fr;
+  grid-template-areas:
+    "NAME AUTHOR TAXA   LV PARTS PRICE DATE"
+    "NAME   TAGS TAGS TAGS  TAGS  TAGS DATE"
+  ;
+  &:has(.tags:empty) {
+    grid-template-areas:
+      "NAME AUTHOR TAXA   LV PARTS PRICE DATE"
+    ;
+  }
+  @media screen and (width <= 735px){
+    grid-template-columns: 18rem 6em 6.2em 4.2em 3.2em 1fr 3.5em;
+  }
+  & .price { grid-area: PRICE; }
+}
+
+/* // List-Item
+---------------------------------------------------------------------------------------------------- */
+.list.item table tr {
+  display: grid;
+  grid-template-columns: 24rem 0.5fr 0.6fr 6em 1fr 0.4fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "NAME AUTHOR CATEGORY PRICE SUMMARY DATE"
+    "NAME TAGS   TAGS     TAGS  TAGS    DATE"
+  ;
+  &:has(.tags:empty) {
+    grid-template-areas:
+      "NAME AUTHOR CATEGORY PRICE SUMMARY DATE";
+  }
+  & .name    { grid-area: NAME; }
+  & .author  { grid-area: AUTHOR; }
+  & .category{ grid-area: CATEGORY; }
+  & .price   { grid-area: PRICE; }
+  & .summary { grid-area: SUMMARY; }
+  & .date    { grid-area: DATE; }
+}
+.list.item table {
+  & td.name a {
+    font-size: 1.4rem;
+  }
+  & td.category,
+  & td.summary {
+    font-size: 1.2rem;
+  }
+  & td.summary {
+    text-align: left;
+  }
+  /* アイテムアイコン */
+  .i-icon {
+    width: 1em;
+    height: 1em;
+  }
+}
+
+/* // List-Arts
+---------------------------------------------------------------------------------------------------- */
+.list.arts table tr {
+  display: grid;
+  grid-template-columns: 24rem 0.5fr 4em 0.6fr 1fr 0.4fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "NAME AUTHOR CATEGORY SUB  SUMMARY DATE"
+    "NAME TAGS   TAGS     TAGS TAGS    DATE"
+  ;
+  &:has(.tags:empty) {
+    grid-template-areas:
+      "NAME AUTHOR CATEGORY SUB SUMMARY DATE";
+  }
+  & .name    { grid-area: NAME; }
+  & .author  { grid-area: AUTHOR; }
+  & .category{ grid-area: CATEGORY; }
+  & .sub     { grid-area: SUB; }
+  & .summary { grid-area: SUMMARY; }
+  & .date    { grid-area: DATE; }
+  & td.name a {
+    font-size: 1.4rem;
+  }
+  & td.sub span {
+    display: inline-block;
+  }
+  & td.summary {
+    font-size: 1.2rem;
+    text-align: left;
+  }
+}
+
+/* // List-Making
+---------------------------------------------------------------------------------------------------- */
+#making {
+  max-width: 430px;
+  margin: 3em auto;
+}
+#making form dl {
+  display: grid;
+  grid-template-columns: 5em 1fr;
+  & dt {
+    text-align: justify;
+    text-align-last: justify;
+  }
+  & dt,
+  & dd {
+    padding: 0.2em 0.5em;
+    border-width: 0 0 1px;
+    border-style: solid;
+  }
+  & dd:nth-of-type(2) input {
+    width: 100%;
+  }
+  & dd:nth-of-type(3) input {
+    width: 4.5em;
+    text-align: center;
+  }
+  & .annotate {
+    padding: .3em 0 0 1em;
+    line-height: 1.2;
+    position: relative;
+  }
+  & .annotate::before {
+    content: "※";
+    position: absolute;
+    left: 0;
+  }
+}
+
+#making-posts h2 {
+  text-align: center;
+  & small {
+    font-size: 60%;
+  }
+}
+#making-posts .post {
+  max-width: 500px;
+  margin: .5em auto 1.5em;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 10px;
+  overflow: hidden;
+}
+#making-posts .post h3 {
+  padding: 0.1em 0.3em;
+  background: rgba(100,120,190,0.25);
+}
+#making-posts .post p {
+  padding: 0.5em 1.5em
+}
+#making-posts .post dl {
+  margin: .5em;
+  & dt {
+  }
+  & dd {
+    margin: 0 .5em .5em;
+  }
+}
+#making-posts .post table {
+  min-width: 400px;
+  margin: .5em auto 1.5em;
+  border-width: 1px;
+  border-style: solid;
+  text-align: center;
+  &.selected {
+    outline: 1px solid #f70;
+  }
+  & tr {
+    border-width: 1px;
+    border-style: solid;
+  }
+  & th {
+    position: relative;
+    padding: 0.2em 0.5em;
+    background: rgba(100,120,190,0.15);
+    text-align: left;
+    & a.to-blanksheet {
+      display: inline-block;
+      position: absolute;
+      top: 0.4em;
+      right: .5em;
+      font-size: 85%;
+      font-weight: normal;
+    }
+  }
+  & td {
+    padding: 0.2em 0.5em;
+    border-width: 1px;
+    border-style: dotted;
+    > span {
+      font-size: 90%;
+    }
+  }
+}
+#making-posts .post time {
+  display: block;
+  padding: 2px .5em;
+  background: rgba(100,120,190,0.1);
+  text-align: right;
+}
+#making-posts .navigation {
+  text-align: center;
+  & a {
+    display: inline-block;
+    + a {
+      margin-left: 3em;
+    }
+  }
+}
+
+
+/* ////////// LayerEnd ////////// */
+}

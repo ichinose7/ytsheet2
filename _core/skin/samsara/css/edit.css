@@ -1,0 +1,1999 @@
+@charset "utf-8";
+
+/* // キャラクター
+---------------------------------------------------------------------------------------------------- */
+#regulation > dl:first-of-type {
+  grid-template-columns: 1fr 1fr 1fr 4fr;
+  
+  #sw2\.0 & {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 5fr;
+  }
+  
+  > dt.grow[data-total] {
+    &:not([data-total="0"]) {
+      &::after {
+        content: "(小計: " attr(data-total) " 回)";
+        font-size: 80%;
+        font-weight: normal;
+      }
+    }
+  }
+}
+#regulation dl.regulation-grow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+}
+@media screen and (width > 735px){
+  #regulation .annotate {
+    margin-top: -1em;
+    margin-bottom: 10px;
+  }
+}
+@media screen and (width <= 735px){
+  #regulation > dl {
+    grid-template-columns: 1fr 1fr 1fr;
+    #sw2\.0 & {
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+  }
+  #regulation > dl > dt:last-of-type {
+    grid-column: 1 / span 3;
+    grid-row: 3;
+  }
+  #regulation > dl > dd:last-of-type {
+    grid-column: 1 / span 3;
+    grid-row: 4;
+  }
+}
+#regulation > label:last-child {
+  margin-top: 0.5em;
+  border: none;
+}
+
+#area-status {
+  grid-template-columns: 0.6fr 0.5fr 1.6fr 1.8fr;
+}
+
+@media screen and (width <= 735px){
+  #area-status {
+    grid-template-columns: 2fr 1fr;
+    grid-gap: var(--box-v-gap) var(--box-h-gap);
+
+    grid-template-areas:
+      "IMG  IMG "
+      "PER  PER "
+      "STT  STT "
+      "STT  STT "
+      "sSTT sSTT"
+      "EXP  LVL "
+    ;
+  }
+  dl#level dt::after {
+    content:''
+  }
+  dl#exp br {
+    display: none;
+  }
+}
+#personal {
+  & dl#race         { flex-basis: 58%; order: 1; }
+  & dl#age          { flex-basis: 20%; order: 2; }
+  & dl#gender       { flex-basis: 20%; order: 3; }
+  & dl#race-ability { flex-basis: 85%; order: 4; }
+  & dl#birth        { flex-basis: 30%; order: 6; }
+  & dl#faith        { flex-basis: 69%; order: 7; }
+  & dl#sin          { flex-basis: 14%; order: 5; }
+  & #race-ability-select:empty {
+    display: none;
+  }
+  & #race-ability-select select {
+    width: auto;
+  }
+  & #race-ability-value:has(input) {
+    display: block !important;
+  }
+}
+
+#status dl[id^="stt-base-"] {
+  dt[data-range] {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    &::after {
+      content: "(" attr(data-range) ")";
+      font-size: 70%;
+      font-weight: normal;
+    }
+  }
+}
+#status dl[id^="stt-add"] {
+  &::before {
+    left: -.6rem;
+  }
+  dd {
+    align-items: end;
+  }
+}
+#status span[id^="stt-equip-"] {
+  text-wrap: nowrap;
+  padding-left: .3em;
+  &:not(:empty)::after {
+    content: "+";
+    font-size: 1.2rem;
+    padding-left: .2em;
+  }
+}
+#status dl#stt-pointbuy-type {
+  grid-column: span 2;
+}
+#status dl:nth-child(n+16):nth-child(-n+21) dd {
+  font-size: 120%;
+
+  & .small {
+    font-size: 80%;
+  }
+}
+@media screen and (width <= 735px){
+  #status {
+    grid-gap: 5px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 0.8fr 1fr;
+  }
+  #status dl.box {
+    overflow-x: visible;
+  }
+  #status dl dt {
+    font-size: 2rem;
+  }
+  #status dl#stt-pointbuy-TPS dt,
+  #status dl#stt-pointbuy-AtoF dt {
+    font-size: 1.8rem;
+  }
+  #status dl#stt-pointbuy-type {
+    grid-column: span 3;
+  }
+  #status dl dd input[type="number"] {
+    min-width: 2em;
+  }
+}
+
+#sub-status input,
+#mobility input {
+  width: 3.5em;
+}
+
+#area-ability {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  align-items: flex-start;
+  gap: var(--box-v-gap) var(--box-h-gap);
+
+  #area-classes {
+    grid-column: span 2;
+  }
+  > p {
+    grid-column: span 2;
+  }
+  @media screen and (width <= 735px){
+    display: block;
+    > p {
+      margin-top: var(--box-v-gap);
+    }
+  }
+}
+
+#area-classes {
+  grid-column: span 2;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+}
+#area-classes.common-classes-off {
+  flex-basis: calc(66% - 1rem);
+  margin-right: var(--box-h-gap);
+}
+
+#classes {
+  flex-basis: 66%;
+  flex-grow: 1;
+  display: grid;
+  position: relative;
+  grid-template-columns: 1fr 1fr;
+
+  & h2 { grid-column: span 2; }
+  #classes-weapon-user { grid-column: 1; }
+  #classes-magic-user  { grid-column: 1; align-self: end; }
+  #classes-other-user  { grid-column: 2; grid-row: 2 / span 2; }
+
+  & h3 {
+    margin-top: 0;
+    font-size: 90%;
+  }
+  & dl {
+    flex-grow: 1;
+    flex-basis: calc(50% - 10px);
+    grid-template-columns: 1fr 3.5em;
+
+    & dt {
+      font-size: inherit;
+    }
+    & select {
+      font-size: 80%;
+    }
+  }
+}
+#common-classes {
+  flex-grow: 1;
+  margin: 0 0 0 var(--box-h-gap) !important;
+
+  & td:last-child {
+    width: 3.5em;
+  }
+}
+@media screen and (width <= 735px){
+  #area-classes {
+    display: block;
+  }
+  #status dl:nth-child(n+16):nth-child(-n+21) dd {
+    transform: none;
+    font-size: 1.25em;
+  }
+  #classes {
+    display: block;
+    width: 100%;
+    & h3 {
+      margin-top: .5em;
+    }
+    & dl {
+      padding-left: 2em;
+      padding-right: 2em;
+      grid-template-columns: 1fr 5em;
+    }
+    & dl dt {
+      display: flex;
+      align-items: center;
+    }
+  }
+  #common-classes {
+    margin: var(--box-v-gap) 0 0 !important;
+  }
+  #common-classes table {
+    width: calc(100% - 1rem - 3.6em);
+    min-width: 0;
+    margin: 0 1.8em;
+  }
+  #common-classes td:last-child {
+    width: 5em;
+  }
+}
+
+#combat-feats {
+  margin-left: 0;
+  & select {
+    margin-left: 1em;
+    width: calc(100% - 4px - 1em);
+  }
+  & ul {
+    &#combat-feat-vagrants-auto li {
+      display: grid;
+      grid-template-columns: 5em auto;
+    }
+    &#combat-feat-vagrants-auto li::before {
+      content: attr(data-label);
+      align-self: end;
+      text-align: right;
+      white-space: nowrap;
+      font-size: 90%;
+    }
+    &#combat-feat-vagrants-auto li select {
+      margin-left: 5px;
+      width: calc(100% - 4px - 5px);
+    }
+  }
+  & .feats-options {
+    margin: .3rem .5em;
+    border-width: 0 0 1px;
+    border-style: solid;
+    & h6 {
+      font-size: 85%;
+    }
+    & li {
+      display: inline-block;
+      border: none;
+      font-size: 90%;
+      line-height: 1;
+    }
+    & li input {
+      margin-right: .5em;
+    }
+  }
+  > p:last-child {
+    font-size: 90%;
+  }
+  @media screen and (width <= 735px){
+    & ul {
+      padding-left: 2em;
+      padding-right: 2em;
+    }
+  }
+}
+#mystic-arts {
+  position: relative;
+
+  & h2:nth-child(n+2) {
+    margin-top: 0;
+  }
+  & ul li {
+    display: grid;
+    grid-template-columns: max-content 1fr 4em;
+    grid-template-rows: auto;
+    .handle {
+      width: 1.2em;
+      margin-left: -.5rem;
+    }
+    #sw2\.0 & {
+      grid-template-columns: max-content 1fr 6em;
+      .honor-pt {
+        margin: 2px;
+      }
+      .honor-pt input {
+        margin-right: 0;
+      }
+    }
+  }
+  @media screen and (width <= 735px){
+    & ul {
+      padding-left: 1em;
+      padding-right: 1em;
+    }
+  }
+}
+#combat-feats-lv1bat select optgroup:empty {
+  display: none;
+}
+
+#area-effects {
+  margin-top: var(--box-v-gap);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  @media screen and (width <= 735px){
+    grid-template-columns: 1fr;
+  }
+  gap: var(--box-v-gap) var(--box-h-gap);
+  position: relative;
+
+  & h2 {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    text-wrap: wrap;
+
+    .handle { font-weight: bold; }
+    select:has(option:checked[value=""]),
+    select option[value=""] { color: #7777; }
+  }
+  & .box:has(select option:checked[value=""]) h2 ~ *{
+    display: none;
+  }
+  .effect-points {
+    display: flex;
+    width: max-content;
+    margin-left: auto;
+    margin-right: .5em;
+    padding: .1em .5em;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    line-height: 1;
+
+    &:has(dt:empty){ display: none; }
+
+    > dt { font-weight: normal; }
+    > dt::after { content: "：" }
+  }
+  .edit-table {
+    > thead tr th {
+      vertical-align: bottom;
+      line-height: 1.4;
+      text-align: left;
+      &.num1,
+      &.num2 {
+        width: 3em;
+        position: relative;
+        text-align: center;
+        > span {
+          min-width: 4em;
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          font-size: 80%;
+          text-wrap: nowrap;
+        }
+      }
+    }
+    > tbody {
+      td.left > input { text-align: left; }
+    }
+    &:has(thead .num1.hidden) tbody .num1 { display: none; }
+    &:has(thead .num2.hidden) tbody .num2 { display: none; }
+  }
+  .box:has(.select-input.free){
+    .edit-table tbody tr:first-of-type {
+      font-weight: bold;
+      > .num1,.num2 {
+        input {
+          padding-top: calc(2px + .2em);
+          padding-bottom: calc(2px + .2em);
+          font-size: 80%;
+        }
+      }
+    }
+  }
+  .box:has(.select-input:not(.free)) .annotate { display: none; }
+
+  > .box:has(table input:read-only) {
+    table {
+      border-bottom: hidden;
+      .handle {
+        visibility: hidden;
+      }
+    }
+    .add-del-button { display: none; }
+  }
+  
+  > .add-del-button {
+    order: 999;
+  }
+  &:not(:has(> div:nth-of-type(3))) > .add-del-button {
+    visibility: hidden;
+    height: 0;
+  }
+  &:has(select option:checked:not([value=""])) > .add-del-button {
+    visibility: visible;
+    height: auto;
+  }
+  @media screen and (width > 915px){
+    > .add-del-button {
+      display: flex;
+      flex-direction: column;
+      gap: 2em;
+      justify-content: end;
+      
+      margin-left: calc(var(--box-h-gap) * -1 + .2em);
+      padding-bottom: 1em;
+
+      > a {
+        width: max-content;
+        height: max-content;
+        margin: 0;
+        flex-shrink: 0;
+        flex-grow: 0;
+        transform: scale(1, 3.5) rotate(-90deg);
+        &::before { transform: scale(0.3,1.5) rotate(90deg); }
+      }
+    }
+    &:has(> div:nth-of-type(3n+1):last-of-type) > .add-del-button {
+      position: absolute;
+      right: -1.2em;
+      bottom: 0;
+    }
+  }
+}
+#area-effects + .annotate {
+  margin: .3em auto 0;
+}
+#area-effects:not(:has(> div:nth-of-type(3))) + .annotate {
+  display: none;
+}
+#area-actions {
+  margin-top: var(--box-v-gap);
+}
+#crafts {
+  flex-basis: 66%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: var(--box-v-gap) var(--box-h-gap);
+}
+#crafts > .box {
+  margin: 0;
+
+  #area-classes.common-classes-off + div + & {
+    flex-basis: calc(33% - 1rem);
+    &:first-child {
+      margin-left: 0 !important;
+    }
+    @media screen and (width <= 735px){
+      flex-basis: calc(50% - 1rem);
+    }
+  }
+  & ul {
+    margin-bottom: -1px;
+  }
+  & ul li:last-child {
+    padding-bottom: 1px;
+  }
+}
+@media screen and (width <= 735px){
+  #crafts {
+    display: block;
+  }
+  #crafts > .box {
+    margin: 0 0 var(--box-v-gap) !important;
+  }
+  #crafts ul {
+    padding-left: 2em;
+    padding-right: 2em;
+  }
+}
+
+
+#area-status + p {
+  margin-top: var(--box-v-gap);
+}
+
+#area-actions {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+#area-package #package table {
+  margin-top: 1px;
+  margin-bottom: -1px;
+  border-top-width: 1px;
+  border-top-style: solid;
+}
+#package table tr:first-child th:first-child {
+  width: 10em;
+}
+#package table tr td:nth-last-child(2) input {
+  width: calc(100% - 1em);
+}
+#area-other-actions input {
+  width: 3.5em;
+}
+
+
+#language dl {
+  display: grid;
+  grid-template-columns: auto 3em 3em;
+  grid-template-rows: auto;
+  
+  margin: 0 5px;
+
+  & dt {
+    font-weight: normal;
+  }
+  & dd {
+    text-align: center;
+  }
+}
+#language table {
+  &:first-of-type { margin-top: -1.5em; }
+
+  & td {
+    vertical-align: bottom;
+  }
+  & td.handle::before {
+    display: block;
+    width: 1.2em;
+    margin-left: -.5rem;
+    text-align: center;
+  }
+  & tr > *:nth-last-child(-n+2) {
+    width: 3em;
+    position: relative;
+  }
+  
+  &#language-table {
+    & td select,
+    & td .lang-select-view {
+      position: absolute;
+      top: 1px;
+      left: 0;
+      right: 0;
+      bottom: 1px;
+      height: auto;
+      cursor: pointer;
+    }
+    & td select {
+      appearance: none;
+      opacity: 0;
+    }
+    & td .lang-select-view {
+      display: block;
+      margin: 1px 1px 0 0;
+      border-width: 1px;
+      border-style: solid;
+      border-color: var(--box-input-border-color);
+      border-radius: 5px;
+      font-size: 85%;
+      pointer-events: none;
+    }
+    & select {
+      & + .lang-select-view { background: var(--input-bg-color); }
+      .night & option { color: var(--text-color); }
+      & option[value="auto"],
+      &[data-type="auto"] + .lang-select-view { background: #00ccff22; }
+      &[data-type="auto"] + .lang-select-view::before { content: '自動'; }
+      & option[value="Sag"],
+      &[data-type="Sag"] + .lang-select-view { background: #55ff0033; }
+      &[data-type="Sag"] + .lang-select-view::before { content: 'セージ'; }
+      & option[value="Bar"],
+      &[data-type="Bar"] + .lang-select-view { background: #ffaa0033; }
+      &[data-type="Bar"] + .lang-select-view::before { content: 'バード'; }
+      & option[value="listen"],
+      &[data-type="listen"] + .lang-select-view { background: #77777722; }
+      &[data-type="listen"] + .lang-select-view::before { content: '△'; }
+    }
+
+    &:not(.sag-available) select option[value="Sag"],
+    &:not(.bar-available) select option[value="Bar"] {
+      display: none;
+    }
+  }
+}
+#language #language-notice {
+  max-width: none;
+  line-height: 1.3;
+  &:empty {
+    display: none;
+  }
+}
+@media screen and (width <= 735px){
+  #area-actions {
+    display: block;
+  }
+  #area-actions .box {
+    margin: var(--box-v-gap) 0 0;
+  }
+  #language :is(table, dl) {
+    width: calc(100% - 1rem - 3em);
+    min-width: 0;
+    margin: 0 1.5em;
+  }
+}
+
+#magic-power {
+  grid-column: span 3;
+  max-width: max-content;
+  min-width: 10em;
+}
+#magic-power #magic-power-hr td {
+  height: .5em;
+}
+#magic-power table td:nth-child(3) {
+  padding-left : .5em;
+  padding-right: .5em;
+  border-width: 0 1px;
+  border-style: none dotted;
+  font-size: 85%;
+  text-align: left;
+  & input {
+    vertical-align: text-bottom;
+  }
+  & label {
+    line-height: 1;
+  }
+}
+#magic-power table td:nth-child(4),
+#magic-power table td:nth-child(5),
+#magic-power table td:nth-child(6) {
+  width: max-content !important;
+  padding-right: .2em;
+  text-align: left;
+}
+#magic-power table td b {
+  display: inline-block;
+  min-width: 2.5em;
+  padding-right : .2em;
+  line-height: 1.6;
+  font-weight: normal;
+  text-align: center;
+  white-space: nowrap;
+}
+#magic-power table td input[type=number] {
+  width: 3.5em;
+}
+#magic-power a {
+  font-size: 90%;
+}
+#magic-power #fairycontact {
+  display: flex;
+  justify-content: center;
+  margin: 0 -.2em;
+  border-width: .1rem 0 0;
+  border-style: solid;
+  & label {
+    padding: .2em;
+    & input[type="checkbox"] {
+      width: auto;
+      margin-right: .2em;
+      border: 0;
+      vertical-align: middle;
+      transform: scale(1.1);
+    }
+    & span {
+      padding: .2em 0;
+      font-size: 85%;
+    }
+    & input[type="number"] {
+      width: 2em;
+      border: 0;
+      vertical-align: middle;
+      transform: scale(1.1);
+    }
+  }
+}
+@media screen and (width <= 735px){
+  #magic-power {
+    width: 100%;
+    overflow-x: auto;
+  }
+  #magic-power table {
+    margin-top: -.5em;
+    table-layout: fixed;
+  }
+  #magic-power thead th {
+    &:nth-child(2) { width: 7.5em; } /* 魔法名 */
+    &:nth-child(3) { width:   6em; } /* 専用 */
+    &:nth-child(4) { width: 8.5em; } /*  */
+    &:nth-child(5) { width: 8.5em; } /*  */
+    &:nth-child(6) { width: 9.5em; } /*  */
+  }
+
+  #magic-power table tr > *:nth-child(1) {
+    display: none;
+  }
+  #magic-power table thead th:nth-child(2) {
+    visibility: hidden;
+  }
+  #magic-power table tr td:nth-child(3) {
+    white-space: nowrap;
+  }
+  #magic-power #fairycontact {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  #magic-power table td input[type=number] {
+    width: 2.5em;
+  }
+}
+
+#classes dl dt.zero-data,
+option.zero-data {
+  background-color: rgba(0,200,255,0.2);
+}
+#classes dl dt.zero-data {
+  font-family: 'Arial';
+}
+option.zero-data::before {
+  content: '★';
+}
+
+#attack-classes {
+  width: calc(25% + 23.7em + 1px);
+  > table {
+    & thead {
+      .acc { width: 4.5em; } /* 命中 */
+      .dmg { width: 4.5em; } /* 追加Ｄ */
+    }
+  }
+}
+#weapons {
+  width: 100%;
+}
+#weapons table {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  table-layout: auto;
+  & thead {
+    .usage { width: 4.2em; } /* 用法 */
+    .acc   { width: 4.5em; } /* 命中 */
+    .dmg   { width: 4.5em; } /* 追加Ｄ */
+    .own   { width:   1em; }
+  }
+}
+#weapons table td {
+  font-size: 90%;
+  vertical-align: top;
+}
+#weapons table td:last-child {
+  padding: 0;
+  border-right: 0;
+  vertical-align: middle;
+}
+#weapons table td b {
+  display: inline-block;
+}
+#weapons table td b::before {
+  content: '=';
+  margin-right: .2rem;
+}
+#weapons td input[name$="Acc"],
+#weapons td input[name$="Dmg"] {
+  width: 3.5em;
+}
+#weapons td input[type="checkbox"] {
+  vertical-align:bottom;
+}
+#weapons .annotate {
+  margin-left: auto;
+  margin-right: auto;
+}
+#weapons td span.handle {
+  display: block;
+  width: 2em;
+  line-height: 2.2;
+  margin-right: auto;
+  float: left;
+}
+#weapons td span.handle + dl {
+  float: right;
+  margin-top: .1em;
+  display: inline-grid;
+  grid-template-columns: max-content auto;
+  align-items: end;
+}
+#weapons td:last-child span[onclick] {
+  padding: 7px 5px;
+}
+@media screen and (width <= 735px){
+  #attack-classes {
+    overflow-x: auto;
+  }
+  #attack-classes table {
+    table-layout: fixed;
+  }
+  #attack-classes thead th {
+    &:nth-child(1) { width:  17em; } /* 名前 */
+    &:nth-child(2) { width:   4em; } /* 必筋 */
+    &:nth-child(3) { width: 5.5em; } /* 命中 */
+    &:nth-child(4) { width:   4em; } /* 威力 */
+    &:nth-child(5) { width:   4em; } /* Ｃ値 */
+    &:nth-child(6) { width: 5.5em; } /* 追加Ｄ */
+  }
+  
+  #weapons {
+    overflow-x: auto;
+  }
+  #weapons table {
+    table-layout: fixed;
+  }
+  #weapons thead th {
+    &:nth-child(1) { width:  12em; } /* 名前 */
+    &:nth-child(2) { width:   5em; } /* 用法 */
+    &:nth-child(3) { width:   4em; } /* 必筋 */
+    &:nth-child(4) { width: 5.5em; } /* 命中 */
+    &:nth-child(5) { width:   4em; } /* 威力 */
+    &:nth-child(6) { width:   4em; } /* Ｃ値 */
+    &:nth-child(7) { width: 5.5em; } /* 追加Ｄ */
+    &:nth-child(8) { width: 1.4em; } /* 専用 */
+    &:nth-child(9) { width:  10em; } /* カテゴリ */
+    &:nth-child(10){ width:  10em; } /* 技能 */
+  }
+}
+
+#evasion-classes {
+  width: calc(25% + 18.5em + 1px);
+}
+#evasion-class-row .flex {
+  display: flex;
+  align-items: center;
+  padding-left: .2em;
+}
+#armours thead {
+  .type { width:   2em; }
+  .cate { width:   6em; }
+  .name { width:   25%; }
+  .reqd { width: 3.5em; }
+  .eva  { width: 3.5em; }
+  .def  { width: 3.5em; }
+  .own  { width: 1.5em; }
+  .calc { width: 1.5em; }
+  .note { width:  auto; }
+}
+
+#armours tbody th.type::before {
+  content: '';
+}
+#armours tbody input[type=checkbox]:disabled {
+  display: none;
+}
+
+#armours tfoot tr:first-child {
+  border-bottom-width: 1px !important;
+  border-bottom-style: solid !important;
+}
+#armours .defense-total {
+  > td.defense-total-checklist {
+    text-wrap: balance;
+  }
+  > td label input + span {
+    font-size: 85%;
+  }
+  > td dl {
+    display: grid;
+    grid-template-columns: max-content auto;
+    align-items: end;
+    padding-left: 2px;
+    > dt {
+      font-size: 85%;
+      padding-bottom: .1em;
+    }
+  }
+}
+
+@media screen and (width <= 735px){
+  #evasion-classes {
+    width: auto;
+  }
+  #evasion-classes thead {
+    .name { width:14.5em; } /* 名前 */
+    .reqd { width:   4em; } /* 必筋 */
+    .eva  { width:   4em; } /* 回避 */
+    .def  { width:   4em; } /* 防護 */
+  }
+  #armours {
+    overflow-x: auto;
+  }
+  #armours table {
+    min-width: 0;
+    table-layout: fixed;
+  }
+  #armours thead {
+    .type { width: 2.5em; } /* 種別 */
+    .cate { width:  6em; } /* 種別 */
+    .name { width:  12em; } /* 名前 */
+    .reqd { width:   4em; } /* 必筋 */
+    .eva  { width:   4em; } /* 回避 */
+    .def  { width:   4em; } /* 防護 */
+    .own  { width: 1.5em; } /* 専用 */
+    .calc { width: 1.5em; } /* 専用 */
+    .note { width:  16em; } /* 備考 */
+  }
+}
+
+#parts {
+  margin-top: var(--box-v-gap);
+  position: relative;
+  
+  &:not([open]) {
+    background-image: linear-gradient(to bottom, var(--box-head-bg-color) 0, transparent 2.5rem);
+  }
+  &[open] summary {
+    width: max-content;
+    position: relative;
+    z-index: 1;
+  }
+  & table {
+    margin-top: -1.5em;
+    & th.name  { width: 6em; }
+    & th.core  { width: 1.5em; text-wrap: nowrap; }
+    & th.def   { width: 8em; }
+    & th.hp    { width: 8em; }
+    & th.mp    { width: 8em; }
+
+    & td:has(b) {
+      text-wrap: nowrap;
+      > input { width: 3em; }
+      > b { display: inline-block; min-width: 1.5em; }
+    }
+  }
+  
+  @media screen and (width <= 735px){
+    .box { overflow-x: auto; }
+    & table { 
+      table-layout: fixed;
+      & th.note  { width: 16em; }
+    }
+  }
+
+  #parts-stt-add {
+    border-top-width: 1px;
+    border-top-style: solid;
+    & dl {
+      width: max-content;
+      display: grid;
+      grid-template-columns: 4em 4em 4em 4em 4em 4em;
+      > dt { grid-row: 1; text-align: center; line-height: 1; font-size: 90%; }
+      > dd { grid-row: 2; }
+      padding-top: .2em;
+      padding-left: .5em;
+    }
+  }
+}
+
+#accessories thead {
+  .check { width: 1.5em; } /* ✔ */
+  .type  { width: 2.5em; } /* 種別 */
+  .name  { width:   25%; } /* 名前 */
+  .own   { width: 4.5em; } /* 専用 */
+  .note  { width:  auto; } /* 備考 */
+}
+#accessories tbody th {
+  cursor: ns-resize;
+}
+#accessories tbody tr {
+  &:nth-child(6n+1),
+  &:nth-child(6n+2),
+  &:nth-child(6n+3) {
+    background-color: transparent;
+  }
+  &:nth-child(6n+4),
+  &:nth-child(6n+5),
+  &:nth-child(6n+6) {
+    background-color: var(--box-even-rows-bg-color);
+  }
+}
+#accessories tbody select {
+  padding-left: 0;
+}
+@media screen and (width <= 735px){
+  #accessories {
+    overflow-x: auto;
+  }
+  #accessories table {
+    min-width: 0;
+    table-layout: fixed;
+  }
+  #accessories thead {
+    .check { width: 1.5em; } /* ✔ */
+    .type  { width: 2.5em; } /* 種別 */
+    .name  { width:  12em; } /* 名前 */
+    .own   { width: 4.5em; } /* 専用 */
+    .note  { width:  16em; } /* 備考 */
+  }
+  #accessories tbody td:nth-child(4) { padding-left: 0; } /* 専用 */
+}
+
+@media screen and (width <= 735px){
+  #area-items {
+    flex-direction: column;
+  }
+  div#area-items-R {
+    margin-left: 0;
+  }
+}
+
+#money {
+  grid-template-columns: 1fr max-content 1fr max-content;
+  > dd:has(input[type="checkbox"]){
+    padding: 1px 0 0 .5em;
+    text-align: left;
+    grid-row: 1;
+  }
+  > dd:has(input[type="text"]){
+    grid-column: span 2;
+  }
+  & input[type="text"] {
+    width: calc(100% - 3em);
+  }
+  & input[readonly] {
+    border: hidden;
+    margin-bottom: 0;
+    padding: 0;
+    background: transparent;
+    text-align: center;
+    color: inherit;
+    font-family: inherit;
+  }
+}
+
+#items textarea {
+  height: 20em;
+}
+
+#cashbook textarea {
+  height: 16em;
+}
+#cashbook-total-value {
+  font-size: 120%;
+  font-weight: bold;
+}
+#cashbook p {
+  font-size: 90%;
+  font-family: inherit;
+  white-space: normal;
+  text-align: left;
+  padding-left: .5em;
+}
+
+
+#battle-items ul {
+  & li {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    grid-template-rows: auto;
+
+    &::before {
+      left: 0;
+      pointer-events: none;
+    }
+    .handle {
+      display: inline-block;
+      width: 1.8em;
+      margin-left: calc(-1em - .2rem);
+      text-align: right;
+    }
+  }
+}
+
+#adventurer-rank,
+#barbaros-rank {
+  > dd {
+    display: flex;
+    grid-column: 2;
+    > input {
+      flex-basis: 3.5em;
+    }
+  }
+}
+
+.honor-items table td.handle::before {
+  display: block;
+  width: 1.4em;
+  margin: 0 -.5rem;
+  text-align: center;
+}
+.honor-items > p:nth-last-child(1) {
+  font-size: 90%;
+  border-width: 1px 0 0;
+  border-style: dotted;
+}
+.honor-items dl#honor-offset {
+  display: grid;
+  grid-template-columns: 1fr 4.2em;
+  margin-top: .5em;
+  border-width: .1rem 0 0;
+  border-style: solid;
+  & dt {
+    text-align: center;
+  }
+  & dd input {
+    margin: 0;
+  }
+}
+.honor-items td:last-child:has(.honor-pt) {
+  position: relative;
+  width: 6.5em;
+}
+.honor-pt {
+  display: grid;
+  grid-template-columns: 1.5em 1fr;
+  position: relative;
+  white-space: nowrap;
+
+  > select,
+  > .honor-select-view {
+    grid-column: 1;
+    grid-row: 1;
+    width: calc(1.5em + 1px);
+    min-width: calc(1.5em + 1px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    cursor: pointer;
+  }
+  > select {
+    appearance: none;
+    opacity: 0;
+  }
+  > .honor-select-view {
+    display: grid;
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--box-input-border-color);
+    border-radius: 5px;
+    pointer-events: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    place-items: center;
+    line-height: 1;
+    &::before { font-size: 85%; }
+  }
+  select + .lang-select-view { background: var(--input-bg-color); }
+  select option[value="human"],
+  select[data-type="human"] + .honor-select-view { background: #00ccff22; }
+  select[data-type="human"] + .honor-select-view::before { content: '人'; }
+  select option[value="barbaros"],
+  select[data-type="barbaros"] + .honor-select-view { background: #ffaa0033; }
+  select[data-type="barbaros"] + .honor-select-view::before { content: '蛮'; }
+  select option[value="both"],
+  select[data-type="both"] + .honor-select-view { background: #ff00ff33; }
+  select[data-type="both"] + .honor-select-view::before { content: '両'; }
+  select option[value="dragon"],
+  select[data-type="dragon"] + .honor-select-view { background: #55ff0033; }
+  select[data-type="dragon"] + .honor-select-view::before { content: '竜'; }
+  input {
+    grid-column: 2;
+    width: auto;
+    margin: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
+.battle-items ul li.fail::before {
+  content: '✖';
+  opacity: 0.8;
+}
+
+#history table {
+  > thead {
+    & th:first-child { width: 1.4em; }
+    .date       { width:   6em; }
+    .title      { width:  12em; }
+    .exp        { width:   5em; }
+    .money      { width: 4.5em; }
+    .honor      { width: 3.5em; }
+    .honor.zero-data { width: 5em; }
+    .grow       { width: 4.5em; }
+    .gm         { width:   6em; }
+    .member     { width:  auto; }
+  }
+  @media screen and (width <= 735px){
+    & { table-layout: fixed; }
+    & thead .title  { width: 12em; }
+    & thead .member { width: 16em; }
+  }
+
+  & tbody td.money {
+    white-space: nowrap;
+
+    &::after {
+      margin: 0 2px 0 -3px !important;
+      font-size: 1.1rem;
+    }
+    & input {
+      width: calc(100% - 0.9em);
+    }
+  }
+}
+
+
+
+
+article > form > hr {
+  margin: 5rem 0px;
+  border-width: 1px 0 0;
+  border-style: solid;
+}
+
+#f-public,
+#f-checkboxes {
+  width: 14em;
+  margin-top: var(--box-v-gap);
+  padding: .5em;
+  background-image: none;
+}
+
+#f-checkboxes {
+  > dl {
+    display: grid;
+    grid-template-columns: 4em 1fr 1fr;
+    align-items: start;
+    margin-left: auto;
+    &:first-of-type {
+      padding-bottom: 5px;
+      margin-bottom: 5px;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+    }
+    > dt,
+    > dd {
+      position: relative;
+      width: 100%;
+      white-space: nowrap;
+      text-align: center;
+    }
+  }
+}
+
+#f-profile {
+  margin-top: var(--box-v-gap);
+}
+#f-profile textarea {
+  height: 10em;
+}
+
+#f-actions {
+  margin-top: var(--box-v-gap);
+}
+#f-actions table {
+  width: 100%;
+}
+#f-actions table tr.border-top {
+  border-width: 1px 0 0;
+  border-style: solid;
+}
+#f-actions table th {
+  white-space: nowrap;
+}
+#f-actions td:has(input,textarea){
+  vertical-align: top;
+}
+#f-actions td[rowspan]{
+  width: 1em;
+  font-size: 3rem;
+  line-height: 1;
+  text-align: center;
+}
+#f-actions td.number {
+  width: 2.5em;
+  font-size: 2rem;
+  text-align: center;
+}
+#f-actions td:nth-last-child(2){
+  width: 4.5em;
+}
+
+#f-note {
+  min-height: auto;
+  margin-top: var(--box-v-gap);
+}
+#f-note textarea {
+  height: 10em;
+}
+
+#palette-optional {
+  border-top-width: 1px;
+  border-top-style: solid;
+}
+#palette-common-classes {
+  > table {
+    border-top-width: 1px;
+    border-top-style: solid;
+    & tr:has(.name:empty){
+      display: none;
+    }
+    & td {
+      min-width: 5em;
+      padding: .2em;
+    }
+  }
+}
+#palette-insert {
+  > ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    @media screen and (width <= 735px){
+      display: block;
+    }
+    > li {
+      text-align: left;
+    }
+    & select {
+      width: max-content;
+    }
+    & textarea {
+      height: 16em;
+    }
+  }
+}
+#palette-attack {
+  > table {
+    thead th {
+      line-height: 1;
+      &:first-child { width: 1em; }
+      &.name { width: 14em; }
+      &.acc  { width: 6em; }
+      &.dmg  { width: 6em; }
+      &.crit { width: 6em; }
+      &.roll { width: 6em; }
+    }
+  }
+}
+#palette-magic {
+  > table {
+    thead th {
+      line-height: 1;
+      &:first-child { width: 1em; }
+      &.name { width: 14em; }
+      &.power { width: 6em; }
+      &.cast  { width: 6em; }
+      &.crit  { width: 6em; }
+      &.dmg   { width: 6em; }
+      &.roll  { width: 6em; }
+    }
+    & label:has(:disabled) {
+      display: none;
+    }
+  }
+}
+@media screen and (width <= 735px){
+  #chatpalette ~ * > details {
+    max-width: 100%;
+    overflow-x: auto;
+    > table {
+      table-layout: fixed;
+    }
+    > table .target { width:16em; }
+  }
+}
+
+#deleteform {
+  margin-top: 5rem;
+  padding-top: 5rem;
+  border-width: 1px 0 0;
+  border-style: solid;
+  text-align: right;
+}
+
+#deleteform input[type="submit"] {
+  margin-left: .5rem;
+  padding: .3rem .5rem;
+}
+
+
+
+/* // モンスター
+---------------------------------------------------------------------------------------------------- */
+form#monster div.box {
+  margin: var(--box-v-gap) 0;
+  overflow-x: auto;
+}
+form#monster .box h2 {
+  font-size: 100%;
+}
+form#monster #group dl {
+  grid-template-columns: 3em 8em 4em 3em 3fr;
+}
+form#monster #group dl .select-input {
+  width: 100%;
+}
+form#monster.mount .monster-only {
+  display: none;
+}
+form#monster:not(.mount) .mount-only {
+  display: none;
+}
+form#monster.not-calc .calc-only {
+  display: none;
+}
+form#monster #area-name {
+  font-weight: bold;
+}
+form#monster #monster-name {
+  flex-grow: 1;
+}
+form#monster #monster-name input {
+  width: calc(100% - 3em);
+}
+form#monster div.status dl {
+  margin: .5rem 0;
+  place-items: center start;
+  & dd {
+    text-align: left;
+  }
+  &.price dd + dd::before {
+    content: "／";
+  }
+}
+form#monster div.status input {
+  &[name^="lv"],
+  &[name="sin"],
+  &[name^="reputation"],
+  &[name="initiative"],
+  &[name*="Resist"]  { width: 5em; }
+  &[name^="price"]   { width: 6em; }
+  &[name="price"]    { width: 8em; }
+  &[name="language"] {width: 25em; }
+}
+@media screen and (width <= 735px){
+  form#monster #group dl {
+    grid-template-columns: 2em 1fr 4em;
+    grid-template-rows: auto auto;
+  }
+  form#monster div.status input[name="language"] {
+    width: 18em;
+  }
+  form#monster div.status dl {
+    flex-wrap: wrap;
+  }
+  form#monster div.status dl dd + dd::before {
+    margin-left: 3em;
+  }
+}
+
+form#monster table.status {
+  border-width: 0;
+}
+form#monster table.status thead {
+  .lv     { width: 0em; }
+  .handle { width: 1.4em; cursor: unset; }
+  .name   { width: auto; }
+  .acc    { width: 12%; }
+  .atk    { width: 12%; }
+  .eva    { width: 12%; }
+  .def    { width: 12%; }
+  .hp     { width: 12%; }
+  .mp     { width: 12%; }
+}
+
+form#monster.mount table.status thead {
+  .lv     { width: 1.8em; }
+  .handle { width: 1.4em; }
+  .name   { width: auto; }
+  .acc    { width: 8.5%; }
+  .atk    { width: 8.5%; }
+  .eva    { width: 8.5%; }
+  .def    { width: 8.5%; }
+  .hp     { width: 8.5%; }
+  .mp     { width: 8.5%; }
+  .vit    { width: 8.5%; }
+  .mnd    { width: 8.5%; }
+}
+
+form#monster table.status thead th.handle::before { content: ""; }
+form#monster table.status tbody + tbody {
+  border-top-width: 3px;
+  border-top-style: double;
+}
+form#monster table.status tbody:last-of-type {
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+form#monster table.status tr {
+  border-right: hidden;
+}
+form#monster table.status tbody:has(.current) th {
+  background-color: #fb07;
+}
+form#monster table.status th {
+  background: transparent;
+}
+form#monster table.status td {
+  white-space: nowrap;
+}
+form#monster:not(.mount) table.status td.handle {
+  border-left: 0;
+}
+form#monster table.status td:last-child {
+  border-right: 0;
+}
+form#monster:not(.mount) table.status input {
+  width: calc(100% - 1.8em);
+}
+form#monster table.status input[name$="Style"] {
+  width: calc(100% - 4px);
+}
+form#monster.mount table.status td:has(.button) {
+  padding: 1px;
+}
+form#monster.mount table.status .button {
+  font-size: 85%;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+form#monster div.parts {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  > label:has([name="partsManualInput"]) {
+    grid-column: span 2;
+    width: max-content;
+  }
+  > dl {
+    align-items: center;
+    & input {
+      width: auto;
+    }
+    & input[name="partsNum"] {
+      width: 5em;
+    }
+    & input[name="parts"] {
+      width: 17.5em;
+    }
+  }
+  @media screen and (width <= 735px) {
+    display: block;
+    > dl {
+      margin-right: 0;
+      > dd {
+        text-align: left;
+      }
+      & input[name="partsNum"] {
+        width: 3.5em;
+      }
+    }
+  }
+}
+@media screen and (width <= 735px){
+  form#monster table.status { width: 50em; }
+  form#monster div.parts dl { display: block; }
+}
+
+form#monster textarea[name="skills"] + .annotate code {
+  font-size: 100%;
+  font-family: monospace,serif;
+}
+
+form#monster textarea[name="skills"] {
+  height: 16em;
+  padding: 2px;
+}
+
+form#monster textarea[name="description"] {
+  height: 16em;
+  padding: 2px;
+}
+form#monster div#loots-list {
+  display: grid;
+  grid-template-columns: 7em auto;
+  white-space: nowrap;
+
+  & ul li {
+    border-width: 1px 0;
+    border-style: solid;
+  }
+  & ul li + li {
+    border-top-width: 0;
+  }
+  & .handle {
+    display: inline-block;
+    widows: 1.4em;
+  }
+  & input {
+    width: calc(100% - 1.4em - 2px);
+  }
+  & ul#loots-num {
+    background-color: rgba(127,127,127,0.3);
+  }
+}
+
+form#monster .color-sample .name {
+  border-width: 2px 0 0;
+  border-color: var(--monster-level-bg-color);
+  background: transparent;
+  position: relative;
+  padding-left: 1.8em;
+  &::before {
+    content: "！";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 1.5em;
+    background-color: var(--monster-level-bg-color);
+    background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.4));
+    color: #fff;
+    text-align: center;
+  }
+}
+form#monster .color-sample .box,
+form#item .color-sample .box,
+form#arts .color-sample .box {
+  border-width: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: var(--box-base-bg-color);
+}
+.night form#monster .color-sample .night,
+.night form#item .color-sample .night,
+.night form#arts .color-sample .night {
+  --box-base-bg-color-d: var(--box-base-bg-color-l);
+}
+form#monster .color-sample .data-table,
+form#item .color-sample .data-table,
+form#arts .color-sample .data-table {
+  width: 100%;
+  border-width: 1.01px;
+  border-style: double;
+  border-color: var(--box-outside-border-color);
+}
+form#monster .color-sample .data-table th {
+  background-color: var(--monster-head-bg-color);
+}
+form#monster .color-sample .data-table td,
+form#item .color-sample .data-table td,
+form#arts .color-sample .data-table td {
+  padding: .2rem;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--box-inside-border-color);
+  text-align: center;
+}
+form#monster .color-sample .data-table tbody tr:nth-child(even) td,
+form#item .color-sample .data-table tbody tr:nth-child(even) td {
+  background-color: var(--box-even-rows-bg-color);
+}
+form#monster .color-sample .box h2 {
+  padding: .3rem .5rem;
+  background-color: var(--monster-head-bg-color) !important;
+}
+/* // アイテム
+---------------------------------------------------------------------------------------------------- */
+form#item div.box {
+  margin: var(--box-v-gap) 0;
+  overflow-x: auto;
+}
+form#item #area-name {
+  font-weight: bold;
+}
+form#item #item-name {
+  flex-grow: 1;
+}
+form#item #item-name input {
+  width: calc(100% - 1em);
+}
+form#item #group dl {
+  display: grid;
+  grid-template-columns: 2.5em 1fr;
+  grid-template-rows: auto;
+}
+form#item div.input-data {
+  padding: 1rem;
+}
+form#item div.input-data div {
+  display: flex;
+  flex-wrap: wrap;
+}
+form#item div.input-data dl {
+  display: flex;
+  margin-right: 1.5em;
+}
+form#item div.input-data dl dt {
+  position: relative;
+  width: 6em;
+  margin-right: 1em;
+  text-align-last: justify;
+}
+form#item div.input-data dl dt::after {
+  content: ':';
+  position: absolute;
+  display: inline-block;
+  width: 1em;
+  text-align: center;
+  font-weight: normal;
+}
+form#item div.input-data dl dd {
+  flex-grow: 1;
+  text-align: left;
+}
+form#item div.input-data dl dd input {
+  max-width: 14em;
+  &[name="reputation"] { width: 6em; }
+  &[name="shape"]      { max-width: 26em; }
+  &[name="summary"]    { max-width: 100%; }
+}
+form#item .input-arms-data {
+  width: 100%;
+  & td { width: 5em; }
+  & td:first-child { width: 1.5em; }
+  & td:last-child { width: auto; }
+  
+  #section-common:not(.is-ranged-weapon) & {
+    :is(th, td).range {
+      display: none;
+    }
+  }
+}
+
+form#item .input-data label {
+  border-width: 1px;
+  border-style: solid;
+  border-radius: .5em;
+  padding: .1em .3em;
+  cursor: pointer;
+}
+form#item .input-data label input {
+  &:checked + span {
+    font-weight: bold;
+  }
+}
+
+form#item textarea[name="effects"] {
+  height: 16em;
+  padding: 2px;
+}
+form#item textarea[name="description"] {
+  height: 16em;
+  padding: 2px;
+}
+
+@media screen and (width <= 735px){
+  form#item div.input-data dl {
+    display: block;
+  }
+}
+
+form#item .color-sample .name {
+  border-width: 2px 0 0;
+  border-color: var(--box-outside-border-color);
+  background: transparent;
+  position: relative;
+  padding-left: .2em;
+}
+form#item .color-sample .data-table th {
+  background-color: var(--item-head-bg-color);
+}
+form#item .color-sample .box h2,
+form#arts .color-sample .box h2 {
+  border-width: 1px 0;
+  border-style: solid;
+  border-color: var(--box-outside-border-color);
+  padding-left: .3em;
+}
+
+
+/* // 魔法
+---------------------------------------------------------------------------------------------------- */
+form#arts :is(div,details).box {
+  margin: var(--box-v-gap) 0;
+  overflow-x: auto;
+}
+form#arts #group dl {
+  display: grid;
+  grid-template-columns: 2.5em 1fr;
+  grid-template-rows: auto;
+}
+form#arts #category dd {
+  text-align: left;
+}
+form#arts #category dd select {
+  width: max-content;
+}
+form#arts div.input-data {
+  position: relative;
+}
+form#arts :is(#arts-list,#school-magic-list) .input-data {
+  border-width: 1px 0 0;
+  border-style: solid;
+  &:last-child {
+    border-bottom-width: 1px;
+  }
+}
+form#arts div.input-data > .handle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  justify-content: center;
+  align-items: center;
+}
+form#arts div.input-data > .handle:hover {
+  background-color: rgba(128, 128, 128, 0.1);
+}
+form#arts div.input-data div {
+  display: flex;
+  flex-wrap: wrap;
+}
+form#arts div.input-data dl {
+  display: flex;
+  margin-right: 1.5em;
+  margin: 0 var(--box-v-gap);
+}
+form#arts div.input-data dl dt {
+  position: relative;
+  width: 6em;
+  margin-right: 1em;
+  padding-top: 3px;
+  text-align-last: justify;
+}
+form#arts div.input-data dl dt::after {
+  content: ':';
+  position: absolute;
+  display: inline-block;
+  width: 1em;
+  text-align: center;
+  font-weight: normal;
+}
+form#arts div.input-data dl dd {
+  flex-grow: 1;
+  text-align: left;
+}
+form#arts div.input-data dl dd input {
+  max-width: 14em;
+}
+form#arts div.input-data dl.maxim input {
+  width: calc(100% - 3em);
+  max-width: none;
+}
+form#arts div.input-data dl.name dd input {
+  max-width: 24em;
+}
+form#arts div.input-data dl.aka dd input {
+  max-width: 10em;
+}
+form#arts div.input-data dl.class .select-input {
+  display: inline-flex;
+  width: 14em;
+}
+form#arts div.input-data dl.class dd select,
+form#arts div.input-data dl.class dd input[type="text"] {
+  max-width: none;
+  width: 100%;
+}
+form#arts div.input-data dl.level dd input {
+  max-width: 5em;
+}
+form#arts div.input-data dl.range dd input {
+  max-width: 6.5em;
+}
+form#arts div.input-data dl.summary dd input {
+  max-width: 100%;
+}
+form#arts div.input-data dl.song dd input[name$="Point"] {
+  width: 5.5em;
+}
+form#arts div.input-data dl.rider dd select {
+  width: max-content;
+}
+form#arts div.input-data dl.command dd input[type="number"],
+form#arts div.input-data dl.commcost dd input[type="number"] {
+  width: 4em;
+}
+form#arts div.input-data dl dd input#schoolItemUrl {
+  max-width: 24em;
+}
+form#arts textarea {
+  height: 6em;
+  padding: 2px;
+}
+form#arts textarea[name="godSymbol"] {
+  height: 10em;
+}
+form#arts textarea[name="godDeity"],
+form#arts textarea[name="godNote"] {
+  height: 16em;
+}
+
+form#arts #data-school dl dt {
+  white-space: nowrap;
+}
+form#arts #school-item-list {
+  width: 100%;
+}
+form#arts #school-item-list thead th {
+  &:nth-child(1) { width: 14em; }
+  &:nth-child(2) { width: 10em; }
+  &:nth-child(3) { width: auto; }
+  &:nth-child(4) { width: 1em; }
+}
+
+form#arts #school-item-list tbody td:nth-child(3) { font-size: 82%; }
+
+@media screen and (width <= 735px){
+  form#arts div.input-data dl dt {
+    width: 6.5em;
+  }
+  form#arts div.input-data dl.name dd input[type="text"] {
+    width: 14em;
+  }
+  form#arts div.input-data dl dd input[type="checkbox"] {
+    margin-right: .2em;
+  }
+  form#arts div.input-data dl dd small {
+    display: block;
+  }
+  form#arts #school-item-list thead th:nth-child(3),
+  form#arts #school-item-list tbody td:nth-child(3) { display: none; }
+  
+  form#arts #school-item-list tbody td { font-size: 82%; }
+}
+
+form#arts .color-sample .data-table th {
+  background-color: var(--arts-head-bg-color);
+}
+form#arts .color-sample .data-table th:first-child {
+  background-color: var(--arts-name-bg-color);
+  color: #fff;
+}
+
+form#arts #image {
+  float: right;
+  width: 280px;
+  margin: 5px;
+  border-width: 1px;
+  border-style: solid;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+@media screen and (width <= 735px){
+  form#arts #image {
+    float: none;
+    width: auto;
+  }
+}

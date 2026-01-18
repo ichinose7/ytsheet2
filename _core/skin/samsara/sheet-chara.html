@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        <TMPL_VAR NAME=rawName> - ゆとシートⅡ for サンサーラバラッド
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" media="all" href="<TMPL_VAR NAME=coreDir>/skin/_common/css/base.css?<TMPL_VAR NAME=ver>">
+    <link rel="stylesheet" media="all" href="<TMPL_VAR NAME=coreDir>/skin/_common/css/sheet.css?<TMPL_VAR NAME=ver>">
+    <link rel="stylesheet" media="all" href="<TMPL_VAR NAME=coreDir>/skin/samsara/css/chara.css?<TMPL_VAR NAME=ver>">
+    <style>
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 0.5rem;
+        }
+
+        .data-table th,
+        .data-table td {
+            border: 1px solid #666;
+            padding: 0.3rem;
+            text-align: center;
+        }
+
+        .data-table th {
+            background: #5a8f5a;
+            color: #fff;
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .tag {
+            background: #e0e0e0;
+            padding: 0.15rem 0.4rem;
+            border-radius: 3px;
+            font-size: 1.1rem;
+        }
+
+        .free-note {
+            white-space: pre-wrap;
+            background: #f9f9f9;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            min-height: 100px;
+        }
+
+        .hp-total,
+        .ap-total {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #c00;
+        }
+
+        .stt-total {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #009;
+        }
+
+        /* 上部：パーソナリティ+画像 */
+        .top-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .personality-box {
+            flex: 1 1 350px;
+        }
+
+        .personality-box table {
+            width: 100%;
+        }
+
+        .personality-box th {
+            width: 100px;
+            text-align: left;
+        }
+
+        .image-box {
+            flex: 0 0 200px;
+        }
+
+        .image-box img {
+            max-width: 180px;
+            max-height: 240px;
+            object-fit: contain;
+            border: 1px solid #888;
+        }
+
+        /* メインエリア */
+        .main-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .tags-column {
+            flex: 0 0 260px;
+        }
+
+        .stats-column {
+            flex: 1 1 500px;
+        }
+
+        .tags-category-box {
+            border: 1px solid #888;
+            margin-bottom: 0.5rem;
+        }
+
+        .tags-category-box h3 {
+            margin: 0;
+            padding: 0.2rem 0.4rem;
+            font-size: 0.9rem;
+            background: #5a8f5a;
+            color: #fff;
+        }
+
+        .tags-category-content {
+            padding: 0.3rem;
+        }
+
+        .lang-section {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .lang-box {
+            flex: 1 1 100px;
+            border: 1px solid #888;
+        }
+
+        .lang-box h4 {
+            margin: 0;
+            padding: 0.15rem 0.3rem;
+            font-size: 0.8rem;
+            background: #5a8f5a;
+            color: #fff;
+        }
+
+        .lang-content {
+            padding: 0.2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="<TMPL_VAR NAME=coreDir>/skin/_common/js/common.js?<TMPL_VAR NAME=ver>"></script>
+    <header>
+        <h1>ゆとシートⅡ for サンサーラバラッド</h1>
+    </header>
+    <main>
+        <article>
+
+            <!-- 上部：パーソナリティ + 画像 -->
+            <div class="top-row">
+                <div class="box personality-box" id="personality">
+                    <h2>パーソナリティ</h2>
+                    <table class="data-table">
+                        <tr>
+                            <th>キャラクター名</th>
+                            <td>
+                                <TMPL_VAR NAME=characterName>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>プレイヤー名</th>
+                            <td>
+                                <TMPL_VAR NAME=playerName>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>地球での氏名</th>
+                            <td>
+                                <TMPL_VAR NAME=aka>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>死因</th>
+                            <td>
+                                <TMPL_VAR NAME=causeOfDeath>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>種族</th>
+                            <td>
+                                <TMPL_VAR NAME=race>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>年齢</th>
+                            <td>
+                                <TMPL_VAR NAME=age>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>性別</th>
+                            <td>
+                                <TMPL_VAR NAME=gender>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>出身</th>
+                            <td>
+                                <TMPL_VAR NAME=birth>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <TMPL_IF NAME=imageURL>
+                    <div class="box image-box" id="image-section">
+                        <h2>キャラクター画像</h2>
+                        <img src="<TMPL_VAR NAME=imageURL>" alt="キャラクター画像">
+                    </div>
+                </TMPL_IF>
+            </div>
+
+            <!-- カルマセクション -->
+            <div class="box" id="karma-section">
+                <h2>カルマ</h2>
+                <table class="data-table">
+                    <tr>
+                        <th>内包カルマ</th>
+                        <th>使用カルマ</th>
+                        <th>潜在カルマ</th>
+                        <th>限界強度</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <TMPL_VAR NAME=karmaInside>
+                        </td>
+                        <td>
+                            <TMPL_VAR NAME=karmaUsed>
+                        </td>
+                        <td>
+                            <TMPL_VAR NAME=karmaLatent>
+                        </td>
+                        <td>
+                            <TMPL_VAR NAME=karmaLimit>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- メインエリア -->
+            <div class="main-row">
+                <!-- 左：行為タグ -->
+                <div class="tags-column">
+                    <div class="box" id="tags-section">
+                        <h2>行為タグ</h2>
+                        <div class="tags-category-box">
+                            <h3>【身体】</h3>
+                            <div class="tags-category-content tags-container">
+                                <TMPL_LOOP NAME=TagsBody><span class="tag">
+                                        <TMPL_VAR NAME=TAG>
+                                    </span></TMPL_LOOP>
+                            </div>
+                        </div>
+                        <div class="tags-category-box">
+                            <h3>【精神】</h3>
+                            <div class="tags-category-content tags-container">
+                                <TMPL_LOOP NAME=TagsMind><span class="tag">
+                                        <TMPL_VAR NAME=TAG>
+                                    </span></TMPL_LOOP>
+                            </div>
+                        </div>
+                        <div class="tags-category-box">
+                            <h3>【感覚】</h3>
+                            <div class="tags-category-content tags-container">
+                                <TMPL_LOOP NAME=TagsSense><span class="tag">
+                                        <TMPL_VAR NAME=TAG>
+                                    </span></TMPL_LOOP>
+                            </div>
+                        </div>
+                        <div class="tags-category-box">
+                            <h3>【知性】</h3>
+                            <div class="tags-category-content tags-container">
+                                <TMPL_LOOP NAME=TagsIntellect><span class="tag">
+                                        <TMPL_VAR NAME=TAG>
+                                    </span></TMPL_LOOP>
+                            </div>
+                        </div>
+                        <div class="lang-section">
+                            <TMPL_IF NAME=LangIra>
+                                <div class="lang-box">
+                                    <h4>言語(イラ)</h4>
+                                    <div class="lang-content tags-container">
+                                        <TMPL_LOOP NAME=LangIra><span class="tag">
+                                                <TMPL_VAR NAME=LANG>
+                                            </span></TMPL_LOOP>
+                                    </div>
+                                </div>
+                            </TMPL_IF>
+                            <TMPL_IF NAME=LangEarth>
+                                <div class="lang-box">
+                                    <h4>言語(地球)</h4>
+                                    <div class="lang-content tags-container">
+                                        <TMPL_LOOP NAME=LangEarth><span class="tag">
+                                                <TMPL_VAR NAME=LANG>
+                                            </span></TMPL_LOOP>
+                                    </div>
+                                </div>
+                            </TMPL_IF>
+                        </div>
+                    </div>
+                </div>
+                <!-- 右：能力値・副能力値・生活 -->
+                <div class="stats-column">
+                    <div class="box" id="status-section">
+                        <h2>能力値</h2>
+                        <table class="data-table">
+                            <tr>
+                                <th></th>
+                                <th>【身体】</th>
+                                <th>【精神】</th>
+                                <th>【感覚】</th>
+                                <th>【知性】</th>
+                            </tr>
+                            <tr>
+                                <th>能力値</th>
+                                <td><span class="stt-total">
+                                        <TMPL_VAR NAME=sttBodyTotal>
+                                    </span></td>
+                                <td><span class="stt-total">
+                                        <TMPL_VAR NAME=sttMindTotal>
+                                    </span></td>
+                                <td><span class="stt-total">
+                                        <TMPL_VAR NAME=sttSenseTotal>
+                                    </span></td>
+                                <td><span class="stt-total">
+                                        <TMPL_VAR NAME=sttIntellectTotal>
+                                    </span></td>
+                            </tr>
+                            <tr>
+                                <th>成功率</th>
+                                <td>
+                                    <TMPL_VAR NAME=sucBody>%
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=sucMind>%
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=sucSense>%
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=sucIntellect>%
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>スキル・チート</th>
+                                <td>
+                                    <TMPL_VAR NAME=sttBodySkillCheat>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=sttMindSkillCheat>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=sttSenseSkillCheat>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=sttIntellectSkillCheat>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>種族</th>
+                                <td>
+                                    <TMPL_VAR NAME=sttBodyRace>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=sttMindRace>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=sttSenseRace>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=sttIntellectRace>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>成長</th>
+                                <td>
+                                    <TMPL_VAR NAME=sttBodyGrowth>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=sttMindGrowth>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=sttSenseGrowth>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=sttIntellectGrowth>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="box" id="sub-status-section">
+                        <h2>副能力値</h2>
+                        <table class="data-table">
+                            <tr>
+                                <th>【HP】</th>
+                                <th>【装甲値】</th>
+                                <th>【部隊値】</th>
+                                <th>【AP】</th>
+                            </tr>
+                            <tr>
+                                <td>基本<TMPL_VAR NAME=hpBase>+補正<TMPL_VAR NAME=hpMod>=<span class="hp-total">
+                                                <TMPL_VAR NAME=hpTotal>
+                                            </span></td>
+                                <td>
+                                    <TMPL_VAR NAME=defenseTotal>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=troopTotal>
+                                </td>
+                                <td>基本<TMPL_VAR NAME=apBase>+補正<TMPL_VAR NAME=apMod>=<span class="ap-total">
+                                                <TMPL_VAR NAME=apTotal>
+                                            </span></td>
+                            </tr>
+                        </table>
+                        <table class="data-table">
+                            <tr>
+                                <th>限界重量</th>
+                                <th>所持重量</th>
+                                <th>収納・積載</th>
+                            </tr>
+                            <tr>
+                                <td>基本<TMPL_VAR NAME=weightLimitBase>+補正<TMPL_VAR NAME=weightLimitMod>=<TMPL_VAR
+                                                NAME=weightLimit>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=weightHeld>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=storage>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="box" id="life-section">
+                        <h2>生活</h2>
+                        <table class="data-table">
+                            <tr>
+                                <th>現在の職業キャリア</th>
+                                <th>生活レベル</th>
+                                <th>所持金</th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <TMPL_VAR NAME=jobCarrier>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=lifeLevel>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=money> Rs
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="data-table">
+                            <tr>
+                                <th>収入</th>
+                                <td>
+                                    <TMPL_VAR NAME=income>
+                                </td>
+                                <th>支出</th>
+                                <td>
+                                    <TMPL_VAR NAME=outcome>
+                                </td>
+                                <th>余剰</th>
+                                <td>
+                                    <TMPL_VAR NAME=surplus> Rs
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- チート -->
+            <div class="box" id="cheat-section">
+                <h2>チート</h2>
+                <TMPL_IF NAME=Cheats>
+                    <table class="data-table">
+                        <tr>
+                            <th>チート名</th>
+                            <th>カルマ</th>
+                            <th>使用</th>
+                            <th>強度</th>
+                            <th>射程</th>
+                            <th>対象</th>
+                            <th>効果</th>
+                        </tr>
+                        <TMPL_LOOP NAME=Cheats>
+                            <tr>
+                                <td>
+                                    <TMPL_VAR NAME=NAME>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=KARMA>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=USE>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=POWER>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=RANGE>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=TARGET>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=EFFECT>
+                                </td>
+                            </tr>
+                        </TMPL_LOOP>
+                    </table>
+                </TMPL_IF>
+            </div>
+
+            <!-- キャリアパス -->
+            <div class="box" id="carrier-section">
+                <h2>キャリアパス</h2>
+                <TMPL_IF NAME=Carriers>
+                    <table class="data-table">
+                        <tr>
+                            <th>時期</th>
+                            <th>キャリア</th>
+                            <th>種別</th>
+                            <th>スキル名</th>
+                            <th>種別</th>
+                            <th>カルマ</th>
+                            <th>使用</th>
+                            <th>AP</th>
+                            <th>射程</th>
+                            <th>対象</th>
+                            <th>判定</th>
+                            <th>参照</th>
+                        </tr>
+                        <TMPL_LOOP NAME=Carriers>
+                            <tr>
+                                <td>
+                                    <TMPL_VAR NAME=ERA>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=NAME>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=TYPE>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=SKILL>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=SKILL_TYPE>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=KARMA>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=USE>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=AP>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=RANGE>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=TARGET>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=CHECK>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=REF>
+                                </td>
+                            </tr>
+                        </TMPL_LOOP>
+                    </table>
+                </TMPL_IF>
+            </div>
+
+            <!-- 装備アイテム -->
+            <div class="box" id="equip-section">
+                <h2>装備アイテム</h2>
+                <TMPL_IF NAME=Equipment>
+                    <table class="data-table">
+                        <tr>
+                            <th>装備</th>
+                            <th>アイテム名</th>
+                            <th>部位</th>
+                            <th>使用</th>
+                            <th>AP</th>
+                            <th>射程</th>
+                            <th>対象</th>
+                            <th>判定</th>
+                            <th>威力</th>
+                            <th>F値</th>
+                            <th>C値</th>
+                            <th>装甲</th>
+                            <th>重量</th>
+                            <th>価格</th>
+                            <th>カルマ</th>
+                            <th>参照</th>
+                        </tr>
+                        <TMPL_LOOP NAME=Equipment>
+                            <tr>
+                                <td><input type="checkbox" <TMPL_VAR NAME=EQUIPPED> disabled></td>
+                                <td>
+                                    <TMPL_VAR NAME=NAME>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=PART>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=USE>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=AP>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=RANGE>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=TARGET>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=CHECK>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=POWER>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=FVAL>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=CVAL>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=DEFENSE>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=WEIGHT>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=PRICE>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=KARMA>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=REF>
+                                </td>
+                            </tr>
+                        </TMPL_LOOP>
+                    </table>
+                </TMPL_IF>
+            </div>
+
+            <!-- 道具アイテム -->
+            <div class="box" id="tool-section">
+                <h2>道具アイテム</h2>
+                <TMPL_IF NAME=Tools>
+                    <table class="data-table">
+                        <tr>
+                            <th>アイテム名</th>
+                            <th>セット数</th>
+                            <th>重量</th>
+                            <th>価格</th>
+                            <th>参照</th>
+                        </tr>
+                        <TMPL_LOOP NAME=Tools>
+                            <tr>
+                                <td>
+                                    <TMPL_VAR NAME=NAME>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=COUNT>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=WEIGHT>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=PRICE>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=REF>
+                                </td>
+                            </tr>
+                        </TMPL_LOOP>
+                    </table>
+                </TMPL_IF>
+            </div>
+
+            <!-- フォロワー -->
+            <div class="box" id="follower-section">
+                <h2>フォロワー</h2>
+                <TMPL_IF NAME=Followers>
+                    <table class="data-table">
+                        <tr>
+                            <th>フォロワー名</th>
+                            <th>人数</th>
+                            <th>部隊値</th>
+                            <th>使用</th>
+                            <th>AP</th>
+                            <th>射程</th>
+                            <th>対象</th>
+                            <th>判定</th>
+                            <th>威力</th>
+                            <th>F値</th>
+                            <th>C値</th>
+                            <th>購入</th>
+                            <th>支出</th>
+                            <th>参照</th>
+                        </tr>
+                        <TMPL_LOOP NAME=Followers>
+                            <tr>
+                                <td>
+                                    <TMPL_VAR NAME=NAME>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=COUNT>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=TROOP>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=USE>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=AP>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=RANGE>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=TARGET>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=CHECK>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=POWER>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=FVAL>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=CVAL>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=PURCHASE>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=EXPENSE>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=REF>
+                                </td>
+                            </tr>
+                        </TMPL_LOOP>
+                    </table>
+                </TMPL_IF>
+                <TMPL_IF NAME=followerSkillName>
+                    <dl>
+                        <dt>部隊スキル</dt>
+                        <dd>
+                            <TMPL_VAR NAME=followerSkillName>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>効果</dt>
+                        <dd>
+                            <TMPL_VAR NAME=followerSkillEffect>
+                        </dd>
+                    </dl>
+                </TMPL_IF>
+            </div>
+
+            <!-- 容姿・詳細・メモ -->
+            <div class="box" id="free-note-section">
+                <h2>容姿・詳細・メモ</h2>
+                <div class="free-note">
+                    <TMPL_VAR NAME=freeNote ESCAPE=HTML>
+                </div>
+            </div>
+
+            <!-- セッション履歴 -->
+            <div class="box" id="history-section">
+                <h2>セッション履歴</h2>
+                <TMPL_IF NAME=History>
+                    <table class="data-table">
+                        <tr>
+                            <th>日付</th>
+                            <th>タイトル</th>
+                            <th>入手カルマ</th>
+                            <th>報酬金額</th>
+                            <th>GM</th>
+                            <th>備考</th>
+                        </tr>
+                        <TMPL_LOOP NAME=History>
+                            <tr>
+                                <td>
+                                    <TMPL_VAR NAME=DATE>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=TITLE>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=KARMA>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=MONEY>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=GM>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=NOTE>
+                                </td>
+                            </tr>
+                        </TMPL_LOOP>
+                    </table>
+                </TMPL_IF>
+            </div>
+
+            <!-- 収支履歴 -->
+            <div class="box" id="cashbook-section">
+                <h2>収支履歴</h2>
+                <TMPL_IF NAME=Cashbook>
+                    <table class="data-table">
+                        <tr>
+                            <th>日付</th>
+                            <th>項目</th>
+                            <th>収入</th>
+                            <th>支出</th>
+                            <th>残高</th>
+                            <th>備考</th>
+                        </tr>
+                        <TMPL_LOOP NAME=Cashbook>
+                            <tr>
+                                <td>
+                                    <TMPL_VAR NAME=DATE>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=ITEM>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=INCOME>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=EXPENSE>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=BALANCE>
+                                </td>
+                                <td>
+                                    <TMPL_VAR NAME=NOTE>
+                                </td>
+                            </tr>
+                        </TMPL_LOOP>
+                    </table>
+                </TMPL_IF>
+            </div>
+
+        </article>
+    </main>
+    <footer>
+        <p class="notes"> (C)Yutorize <a href="http://yutorize.2-d.jp">ゆとらいず工房</a></p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+<TMPL_INCLUDE NAME="../_common/sheet-head.html">
+</head>
+<body id="monster" <TMPL_IF mount>class="mount"</TMPL_IF>>
+  <header>
+    <h1><a href="./?type=m"><TMPL_VAR title></a></h1>
+    <nav>
+      <ul>
+        <TMPL_LOOP Menu><li class="<TMPL_VAR SIZE>"><a <TMPL_VAR TYPE>="<TMPL_VAR VALUE>"><TMPL_VAR TEXT></a>
+        </TMPL_LOOP>
+        <li><a onclick="nightModeChange()" class="nightmode-icon" title="ナイトモード"></a>
+      </ul>
+    </nav>
+  </header>
+  <div class="header-back-name"><TMPL_VAR titleName> - <TMPL_VAR title></div>
+  
+  <TMPL_IF error>
+  <aside id="error">
+    <p>
+      <TMPL_VAR error>
+    </p>
+  </aside>
+  </TMPL_IF>
+  
+  <TMPL_UNLESS modeDownload>
+    <TMPL_UNLESS forbiddenMode>
+      <aside id="loglist" class="float-box">
+        <h2>過去ログ（バックアップ）</h2>
+        <ul>
+          <TMPL_LOOP LogList><li class="<TMPL_VAR SELECTED>"><a href="?id=<TMPL_VAR id><TMPL_VAR URL>"><TMPL_VAR DATE></a></TMPL_LOOP>
+        </ul>
+        <TMPL_IF viewLogNaming><details id="log-naming">
+          <summary>閲覧中のログ<TMPL_IF selectedLogName>の名前をつけなおす<TMPL_ELSE>に名前をつける</TMPL_IF></summary>
+          <form id="log-naming-form" method="post" action="./">
+            <input type="hidden" name="mode" value="bu-naming">
+            <input type="hidden" name="id" value="<TMPL_VAR id>">
+            <input type="hidden" name="date" value="<TMPL_VAR logId>">
+            <dl>
+              <dt>名前<dd><input type="text" name="log-name" value="<TMPL_VAR selectedLogName>">
+              <TMPL_IF reqdPassword><dt>パスワード<dd><input type="password" name="pass"></TMPL_IF>
+              <dd><input type="submit" value="命名">
+            </dl>
+          </form>
+        </details></TMPL_IF>
+      </aside>
+
+      <aside id="downloadlist" class="float-box">
+        <h2>出力</h2>
+        <ul>
+          <li id="downloadlist-udonarium"><a onclick="downloadAsUdonarium();">ユドナリウム用コマデータ<small>(zip形式ファイル)</small></a>
+          <li id="downloadlist-ccfolia"><a onclick="downloadAsCcfolia();">ココフォリア用コマデータ<small>(クリップボードへコピー)</small></a>
+          <li id="downloadlist-text"><a onclick="downloadAsText();">テキスト形式</a>
+          <li id="downloadlist-json"><a onclick="downloadAsJson();">JSON 形式</a>
+          <li id="downloadlist-html"><a onclick="downloadAsHtml();">HTML 形式</a>
+          <li id="downloadlist-zipped"><a onclick="downloadAsFullSet();">ZIP 形式（上記全部入り）</a>
+          <li class="link-tag"><span>ゆとシート内リンク用タグ<br><input type="text" onclick="this.select()" value="[<TMPL_VAR rawName>#<TMPL_VAR id>]"></span>
+        </ul>
+      </aside>
+    </TMPL_UNLESS>
+
+    <form id="login-form" class="float-box" method="post" action="./">
+      <input type="hidden" name="mode" value="edit">
+      <input type="hidden" name="id" value="<TMPL_VAR id>">
+      <input type="password" name="pass" placeholder="password">
+      <input type="hidden" name="log" value="<TMPL_VAR logId>">
+      <input type="submit" value="編集">
+    </form>
+  </TMPL_UNLESS>
+
+  <main>
+    <TMPL_IF forbidden><aside class="information attention">
+      閲覧が制限されているデータです。<br>
+      <TMPL_IF yourAuthor>あなた以外には一部または全てのデータが伏せられます。(<a href="./?id=<TMPL_VAR id>&checkView=1">⇒確認</a>)</TMPL_IF>
+    </aside></TMPL_IF>
+    
+    <TMPL_IF logId><aside class="information log">
+      <h2><TMPL_VAR selectedLogName></h2>
+      <p><TMPL_VAR updateTime> 時点の過去ログ(バックアップ)データです。</p>
+    </aside></TMPL_IF>
+    
+    <TMPL_IF convertMode><aside class="information">
+      <a href="<TMPL_VAR convertUrl>" target="_blank"><TMPL_VAR convertSource></a> のデータを表示しています。
+    </aside></TMPL_IF>
+    
+    <article>
+      <div id="area-name" class="color-set">
+        <TMPL_UNLESS mount><div class="lv"><TMPL_VAR lv></div></TMPL_UNLESS>
+        <div class="name-taxa">
+          <h1><TMPL_IF characterName><TMPL_VAR characterName><TMPL_IF monsterName><small class="monster-name">【<TMPL_VAR monsterName>】</small></TMPL_IF><TMPL_ELSE><TMPL_VAR monsterName></TMPL_IF></h1>
+          <div class="taxa">分類：<TMPL_IF mount>騎獣／</TMPL_IF><TMPL_VAR taxa></div>
+        </div>
+      </div>
+
+      <div id="tags">
+        <TMPL_LOOP Tags><a class="tag" href="./?type=m&tag=<TMPL_VAR URL>"><TMPL_VAR TEXT></a></TMPL_LOOP>
+      </div>
+      
+      <div class="status">
+        <TMPL_IF mount>
+          <div>
+            <dl><dt>価格<dd><TMPL_VAR price></dl>
+            <dl><dt>適正レベル<dd><TMPL_VAR appLv></dl>
+          </div>
+          <div>
+            <dl><dt>知能<dd><TMPL_VAR intellect></dl>
+            <dl><dt>知覚<dd><TMPL_VAR perception></dl>
+            <TMPL_IF displaySin><dl><dt>穢れ<dd><TMPL_VAR sin></dl></TMPL_IF>
+            <dl><dt>言語<dd><TMPL_VAR language></dl>
+          </div>
+          <div>
+            <dl><dt>弱点<dd><TMPL_VAR weakness></dl>
+            <dl><dt>移動速度<dd><TMPL_VAR mobility></dl>
+          </div>
+        <TMPL_ELSE>
+          <div>
+            <dl><dt>知能<dd><TMPL_VAR intellect></dl>
+            <dl><dt>知覚<dd><TMPL_VAR perception></dl>
+            <dl><dt>反応<dd><TMPL_VAR disposition></dl>
+            <TMPL_IF displaySin><dl><dt>穢れ<dd><TMPL_VAR sin></dl></TMPL_IF>
+          </div>
+          <div>
+            <dl><dt>言語<dd><TMPL_VAR language></dl>
+            <dl><dt>生息地<dd><TMPL_VAR habitat></dl>
+          </div>
+          <div>
+            <dl><dt>知名度／弱点値<dd><TMPL_VAR reputation>／<TMPL_VAR reputation+></dl>
+            <dl><dt>弱点<dd><TMPL_VAR weakness></dl>
+          </div>
+          <div>
+            <dl><dt>先制値<dd><TMPL_VAR initiative></dl>
+            <dl><dt>移動速度<dd><TMPL_VAR mobility></dl>
+            <div>
+              <TMPL_IF vitResist><dl><dt>生命抵抗力<dd><TMPL_VAR vitResist></dl></TMPL_IF>
+              <TMPL_IF mndResist><dl><dt>精神抵抗力<dd><TMPL_VAR mndResist></dl></TMPL_IF>
+            </div>
+          </div>
+        </TMPL_IF>
+      </div>
+      <table class="status">
+        <thead>
+          <tr>
+            <TMPL_IF mount><th class="lv">Lv</TMPL_IF>
+            <th class="name">攻撃方法<span class="text-part">（部位）</span>
+            <th class="acc">命中力
+            <th class="atk">打撃点
+            <th class="eva">回避力
+            <th class="def">防護点
+            <th class="hp">ＨＰ
+            <th class="mp">ＭＰ
+            <TMPL_IF mount><th class="vit">生命抵抗</TMPL_IF>
+            <TMPL_IF mount><th class="mnd">精神抵抗</TMPL_IF>
+          
+        </thead>
+        <TMPL_LOOP Status><tbody>
+          <TMPL_LOOP ROW><tr>
+            <TMPL_IF mount><td class="lv"><TMPL_VAR LV></TMPL_IF>
+            <td class="name"><TMPL_VAR STYLE>
+            <td class="acc"><TMPL_VAR ACCURACY>
+            <td class="atk"><TMPL_VAR DAMAGE>
+            <td class="eva"><TMPL_VAR EVASION>
+            <td class="def"><TMPL_VAR DEFENSE>
+            <td class="hp"><TMPL_VAR HP>
+            <td class="mp"><TMPL_VAR MP>
+            <TMPL_IF mount><td class="vit"><TMPL_VAR VIT></TMPL_IF>
+            <TMPL_IF mount><td class="mnd"><TMPL_VAR MND></TMPL_IF>
+          </TMPL_LOOP>
+        </tbody></TMPL_LOOP>
+      </table>
+      <TMPL_IF partsOn>
+      <div class="parts">
+        <dl><dt>部位数<dd class="parts-num-and-names"><span class="num"><TMPL_VAR partsNum></span><span class="name">（<TMPL_VAR parts>）</span></dl>
+        <dl><dt>コア部位<dd><TMPL_VAR coreParts></dl>
+      </div>
+      </TMPL_IF>
+      <section class="box skills">
+        <h2><TMPL_IF head_skills><TMPL_VAR head_skills><TMPL_ELSE>特殊能力</TMPL_IF></h2>
+        <TMPL_IF skills><TMPL_VAR skills><TMPL_ELSE><p>なし</p></TMPL_IF>
+      </section>
+      <TMPL_IF Loots>
+      <section class="loots">
+        <h2>戦利品</h2>
+        <dl>
+          <TMPL_LOOP Loots><dt><TMPL_VAR NUM><dd><TMPL_VAR ITEM></TMPL_LOOP>
+        </dl>
+      </section>
+      </TMPL_IF>
+
+      <TMPL_IF description><section class="box description">
+        <h2><TMPL_IF head_description><TMPL_VAR head_description><TMPL_ELSE>解説</TMPL_IF></h2>
+        <p><TMPL_VAR description></p>
+      </section></TMPL_IF>
+
+      <div id="author">
+        製作者：<TMPL_VAR author>
+      </div>
+      <section class="box chat-palette float-box">
+        <h2>チャットパレット</h2>
+        <div class="chat-palette-menu">
+          <b>使用ツール:</b>
+          <a onclick="chatPaletteSelect('')"       id="cp-switch-ytc">ゆとチャadv.</a>
+          <a onclick="chatPaletteSelect('tekey')"  id="cp-switch-tekey">Tekey</a>
+          <a onclick="chatPaletteSelect('bcdice')" id="cp-switch-bcdice">他BCDice系</a>
+        </div>
+        <textarea id="chatPaletteBox"></textarea>
+      </section>
+    </article>
+    <div class="back-button"><a href="./?type=m">⏎</a></div>
+    <TMPL_IF image><div id="image-box" onclick="closeImage()">
+      <img src="<TMPL_VAR imageSrc>" id="image-box-image">
+    </div></TMPL_IF> 
+  </main>
+  <TMPL_INCLUDE NAME="skin-add/sheet-sidebar.html">
+
+  <footer>
+    <p class="notes">(C)Group SNE「ソード・ワールド2.0／2.5」</p>
+    <p class="copyright">©<a href="https://yutorize.2-d.jp">ゆとらいず工房</a>「ゆとシートⅡ」ver.<TMPL_VAR ver></p>
+  </footer>
+</body>
+
+</html>
