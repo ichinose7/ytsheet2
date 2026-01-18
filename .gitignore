@@ -1,0 +1,4 @@
+config.cgi
+*.swp
+.vscode/
+.idea/
