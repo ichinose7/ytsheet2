@@ -1,0 +1,5 @@
+# Exclude local config files
+config.cgi
+*.swp
+.vscode/
+.idea/

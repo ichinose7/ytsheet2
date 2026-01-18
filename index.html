@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ytsheet2 Hub</title>
+    <link rel="stylesheet" href="_core/skin/_common/css/base.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300..700,0..1,-25">
+    <script src="_core/skin/_common/js/lib/jquery-3.7.1.min.js"></script>
+    <script src="_core/skin/_common/js/common.js"></script>
+    <style>
+        .system-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem 0;
+            list-style: none;
+        }
+
+        .system-list li a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid #aaa;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.4rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .system-list li a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.95);
+            color: #0056b3;
+        }
+
+        .night .system-list li a {
+            background: rgba(30, 35, 40, 0.6);
+            border-color: #556;
+            color: #eef;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .night .system-list li a:hover {
+            background: rgba(40, 45, 60, 0.8);
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
+        }
+
+        .description {
+            margin-top: 0.5rem;
+            font-size: 0.85em;
+            font-weight: normal;
+            color: #666;
+        }
+
+        .night .description {
+            color: #aaa;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>ytsheet2 Hub</h1>
+        <nav>
+            <ul>
+                <li class="nightmode-icon" title="ナイトモード切替" onclick="nightModeChange()"></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <article>
+            <h1>システム一覧</h1>
+            <p>利用したいTRPGシステムを選択してください。</p>
+            <ul class="system-list">
+                <li><a href="sw2.5/">ソード・ワールド2.5<span class="description">Sword World 2.5</span></a></li>
+                <li><a href="sw2.0/">ソード・ワールド2.0<span class="description">Sword World 2.0</span></a></li>
+                <li><a href="dx3rd/">ダブルクロス3rd<span class="description">Double Cross 3rd</span></a></li>
+                <li><a href="ar2e/">アリアンロッド2E<span class="description">Arianrhod RPG 2E</span></a></li>
+                <li><a href="gc/">グランクレスト<span class="description">Grancrest RPG</span></a></li>
+                <li><a href="kiz/">キズナバレット<span class="description">Kizuna Bullet</span></a></li>
+                <li><a href="blp/">ブラッドパス<span class="description">Blood Path</span></a></li>
+                <li><a href="gs/">ゴブリンスレイヤー<span class="description">Goblin Slayer TRPG</span></a></li>
+                <li><a href="ms/">マージナルヒーローズ<span class="description">Marginal Heroes</span></a></li>
+                <li><a href="vc/">ヴァイスシティ<span class="description">Vice City</span></a></li>
+            </ul>
+        </article>
+    </main>
+
+    <footer>
+        <div class="copyright">ytsheet2</div>
+    </footer>
+</body>
+
+</html>
