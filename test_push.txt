@@ -1,3 +1,0 @@
-# Test File
-This is a test file to verify Git push functionality.
-Created at: 2026-01-18T10:48:50+09:00
