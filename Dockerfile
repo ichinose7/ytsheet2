@@ -15,6 +15,9 @@ ENV LC_ALL ja_JP.UTF-8
 # Perlモジュールのインストール (ytsheetで必要そうなもの)
 RUN cpanm CGI JSON
 
+# mixhost互換: /usr/bin/perlml を /usr/bin/perl へのシンボリックリンクとして作成
+RUN ln -s /usr/bin/perl /usr/bin/perlml
+
 # Apacheの設定変更 (CGIの有効化)
 RUN sed -i \
         -e 's/#LoadModule cgid_module/LoadModule cgid_module/' \
